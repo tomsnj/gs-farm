@@ -1,0 +1,135 @@
+
+
+Sat Jan 21 08:36:54 2023
+Command line: TestDisk
+
+TestDisk 7.1, Data Recovery Utility, July 2019
+Christophe GRENIER <grenier@cgsecurity.org>
+https://www.cgsecurity.org
+OS: Linux, kernel 5.15.0-56-generic (#62-Ubuntu SMP Tue Nov 22 19:54:14 UTC 2022) x86_64
+Compiler: GCC 11.2
+ext2fs lib: 1.46.5, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.3
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       2147483648 sectors
+/dev/sda: user_max   2147483648 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop12 - 0 B - 0 sectors (RO), sector size=512
+Hard disk list
+Disk /dev/sda - 1099 GB / 1024 GiB - CHS 133674 255 63, sector size=512 - VMware Virtual SATA Hard Drive, S/N:01000000000000000001, FW:00000001
+Disk /dev/loop0 - 298 MB / 285 MiB - 583776 sectors (RO), sector size=512
+Disk /dev/loop1 - 298 MB / 284 MiB - 583544 sectors (RO), sector size=512
+Disk /dev/loop10 - 250 MB / 238 MiB - 488400 sectors (RO), sector size=512
+Disk /dev/loop11 - 66 MB / 63 MiB - 129496 sectors (RO), sector size=512
+Disk /dev/loop13 - 250 MB / 238 MiB - 488864 sectors (RO), sector size=512
+Disk /dev/loop14 - 170 MB / 162 MiB - 333552 sectors (RO), sector size=512
+Disk /dev/loop15 - 172 MB / 164 MiB - 337424 sectors (RO), sector size=512
+Disk /dev/loop16 - 229 MB / 219 MiB - 448512 sectors (RO), sector size=512
+Disk /dev/loop17 - 363 MB / 346 MiB - 709216 sectors (RO), sector size=512
+Disk /dev/loop18 - 363 MB / 346 MiB - 709280 sectors (RO), sector size=512
+Disk /dev/loop19 - 229 MB / 219 MiB - 448512 sectors (RO), sector size=512
+Disk /dev/loop2 - 4096 B - 8 sectors (RO), sector size=512
+Disk /dev/loop20 - 85 MB / 81 MiB - 166424 sectors (RO), sector size=512
+Disk /dev/loop21 - 96 MB / 91 MiB - 187776 sectors (RO), sector size=512
+Disk /dev/loop22 - 48 MB / 45 MiB - 94056 sectors (RO), sector size=512
+Disk /dev/loop23 - 48 MB / 45 MiB - 94064 sectors (RO), sector size=512
+Disk /dev/loop24 - 52 MB / 49 MiB - 101624 sectors (RO), sector size=512
+Disk /dev/loop25 - 52 MB / 49 MiB - 102048 sectors (RO), sector size=512
+Disk /dev/loop26 - 122 MB / 116 MiB - 238992 sectors (RO), sector size=512
+Disk /dev/loop27 - 66 MB / 63 MiB - 129584 sectors (RO), sector size=512
+Disk /dev/loop3 - 9396 KB / 9176 KiB - 18352 sectors (RO), sector size=512
+Disk /dev/loop4 - 9396 KB / 9176 KiB - 18352 sectors (RO), sector size=512
+Disk /dev/loop5 - 46 MB / 44 MiB - 91232 sectors (RO), sector size=512
+Disk /dev/loop6 - 46 MB / 44 MiB - 91576 sectors (RO), sector size=512
+Disk /dev/loop7 - 122 MB / 116 MiB - 238984 sectors (RO), sector size=512
+Disk /dev/loop8 - 58 MB / 55 MiB - 113896 sectors (RO), sector size=512
+Disk /dev/loop9 - 58 MB / 55 MiB - 113888 sectors (RO), sector size=512
+
+Partition table type (auto): Intel
+Disk /dev/sda - 1099 GB / 1024 GiB - VMware Virtual SATA Hard Drive
+Partition table type: Intel
+
+Interface Advanced
+Geometry from i386 MBR: head=255 sector=2
+BAD_RS LBA=2048 64512
+FAT32 at 0/32/33
+Info: size boot_sector 1048576, partition 1048576
+FAT1 : 32-1055
+FAT2 : 1056-2079
+start_rootdir : 2080 root cluster : 2
+Data : 2080-1048575
+sectors : 1048576
+cluster_size : 8
+no_of_cluster : 130812 (2 - 130813)
+fat_length 1024 calculated 1022
+set_FAT_info: name from BS used
+BAD_RS LBA=1052670 16450498
+BAD_RS LBA=1052672 16450498
+ 1 * FAT32                    0  32 33    65 101 36    1048576 [NO NAME]
+     FAT32, blocksize=4096, 536 MB / 512 MiB
+ 2 E extended                65 134  4 133674 139 33 2146428930
+ 5 L Linux                   65 134  6 133674 139 33 2146428928
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 1098 GB / 1023 GiB
+
+FAT: cluster=2(0x2), pos=4128
+Directory /
+Partition table type (auto): Intel
+Disk /dev/sda - 1099 GB / 1024 GiB - VMware Virtual SATA Hard Drive
+Partition table type: EFI GPT
+
+Interface Advanced
+Bad GPT partition, invalid signature.
+Trying alternate GPT
+Bad GPT partition, invalid signature.
+
+Analyse Disk /dev/sda - 1099 GB / 1024 GiB - CHS 133674 255 63
+Bad GPT partition, invalid signature.
+Trying alternate GPT
+Bad GPT partition, invalid signature.
+Current partition structure:
+Bad GPT partition, invalid signature.
+Trying alternate GPT
+Bad GPT partition, invalid signature.
+
+search_part()
+Disk /dev/sda - 1099 GB / 1024 GiB - CHS 133674 255 63
+FAT32 at 0/32/33
+FAT1 : 32-1055
+FAT2 : 1056-2079
+start_rootdir : 2080 root cluster : 2
+Data : 2080-1048575
+sectors : 1048576
+cluster_size : 8
+no_of_cluster : 130812 (2 - 130813)
+fat_length 1024 calculated 1022
+set_FAT_info: name from BS used
+
+FAT32 at 0/32/33
+FAT: cluster=2(0x2), pos=4128
+     MS Data                     2048    1050623    1048576 [NO NAME]
+     FAT32, blocksize=4096, 536 MB / 512 MiB
+
+recover_EXT2: s_block_group_nr=0/8187, s_mnt_count=61/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 268303616
+recover_EXT2: part_size 2146428928
+Filesystem created: Mon Aug  3 20:47:30 2020
+Last mount time:    Wed Jan 11 21:40:29 2023
+     Linux filesys. data      1052672 2147481599 2146428928
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 1098 GB / 1023 GiB
+
+Results
+   P MS Data                     2048    1050623    1048576 [NO NAME]
+     FAT32, blocksize=4096, 536 MB / 512 MiB
+   P Linux filesys. data      1052672 2147481599 2146428928
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 1098 GB / 1023 GiB
+
+Hint for advanced users: dmsetup may be used if you prefer to avoid rewriting the partition table for the moment:
+echo "0 1048576 linear /dev/sda 2048" | dmsetup create test0
+echo "0 2146428928 linear /dev/sda 1052672" | dmsetup create test1
+
+interface_write()
+ 1 P MS Data                     2048    1050623    1048576 [NO NAME]
+ 2 P Linux filesys. data      1052672 2147481599 2146428928
+simulate write!
+
+TestDisk exited normally.

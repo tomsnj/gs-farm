@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.image,
+button {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+button {
+    border: none;
+    background: none;
+}
+</style>
+    <script defer src="macy.js"></script>
+    <script defer src="bunnies.js"></script>
+    <script defer src="horses.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+    <a href="https://gsfarm.site"><img src="../back.png" style="aspect-ratio: 1/1; width:50px;" alt=""></a>
+    <h1>Macy</h1>
+    <div class="carousels">
+        <div class="carousel" id="macy">
+            <button onclick="previousMacy()"><img src="previous.png" alt=""></button>
+            <img src="macy/1.jpg" alt="" class="image" id="macyPic">
+            <button onclick="nextMacy()"><img src="next.png" alt=""></button>
+        </div>
+    <h1>Bunnies</h1>
+        <div class="carousel" id="bunnies">
+            <button onclick="previousBunnies()"><img src="previous.png" alt=""></button>
+            <img src="bunnies/1.jpg" alt="" class="image" id="bunniesPic">
+            <button onclick="nextBunnies()"><img src="next.png" alt=""></button>
+        </div>
+    <h1>Horses</h1>
+        <div class="carousel" id="horses">
+            <button onclick="previousHorses()"><img src="previous.png" alt=""></button>
+            <img src="horses/1.jpg" alt="" class="image" id="horsesPic">
+            <button onclick="nextHorses()"><img src="next.png" alt=""></button>
+        </div>
+    </div>
+</body>
+
+</html>

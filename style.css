@@ -1,0 +1,58 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+a,
+p,
+button {
+    font-family: sans-serif;
+}
+
+button {
+    background: linear-gradient(90deg, rgb(115, 0, 255) 0%, rgba(140, 0, 255, 1) 100%);
+    color: white;
+    min-width: 10vw;
+    min-height: 5vh;
+    cursor: pointer;
+    margin: 5px;
+    flex-grow: 1;
+}
+
+.link-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+button:hover {
+    background: #8400ff;
+    border-width: 4px;
+}
+
+.countdown {
+    background-color: #8400ff;
+    min-height: 10vh;
+    font-size: 22px;
+    border-radius: 8px;
+    margin: 12px;
+    color: white;
+}
+
+
+#countdown-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media only screen and (max-width: 730px) and (orientation: portrait) {
+    #countdown-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+body {
+    margin: 0;
+}

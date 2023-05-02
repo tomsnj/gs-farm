@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSFarm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Welcome which page would you like to visit today</h1>
+    <div class="link-container">
+        <button onclick="window.location.href='https://gsfarm.site/Roadtrip%20planning/roadtrips.html';">Roadtrip
+            map</button>
+        <button onclick="window.location.href='https://gsfarm.site/shower-tracker/';">Shower tracking</button>
+        <button onclick="window.location.href='https://gsfarm.site/animals/animals.html';">Our animals</button>
+        <button onclick="window.location.href='https://gsfarm.site/a-frame';">Macy pictures in VR(or on phone)</button>
+    </div>
+    <div id="countdown-container">
+        <div class="countdown">
+            <p id="countdown1"></p>
+            <h3 id="date1">Until Macy's Birthday!!!</h3>
+        </div>
+        <div class="countdown">
+            <p id="countdown2"></p>
+            <h3 id="date2">Until Cancun!!!</h3>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown(targetDates) {
+            // Get the current date and time
+            var currentDate = new Date();
+
+            for (var i = 0; i < targetDates.length; i++) {
+                // Calculate the time remaining until the target date
+                var timeRemaining = targetDates[i] - currentDate;
+
+                // Calculate the number of days, hours, minutes, and seconds remaining
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = days * 24;
+                var minutes = hours * 60;
+                var seconds = minutes * 60;
+
+                // Update the countdown and date elements with the calculated values
+                document.getElementById("countdown" + (i + 1)).innerText = days + " days:\n" + hours + " hours:\n" + minutes + " minutes\n" + seconds + " seconds\n";
+            }
+        }
+
+        // Run the updateCountdown function every second
+        setInterval(function () { updateCountdown([new Date("Febuary 14, 2023"), new Date("Febuary 17, 2023")], 1000) });
+    </script>
+</body>
+
+</html>
