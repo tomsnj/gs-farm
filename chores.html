@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chore Picker</title>
+    <script src=" https://cdn.jsdelivr.net/npm/airtable@0.12.1/lib/airtable.umd.min.js "></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            padding: 0;
+            font-size: 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chore Picker</h1>
+    <form id="choreForm">
+
+        <label for="inside_outside">Inside or Outside:</label>
+        <select id="inside_outside">
+            <option value="any">Any</option>
+            <option value="inside">Inside</option>
+            <option value="outside">Outside</option>
+        </select>
+
+        <label for="time_required">Time Required:</label>
+        <select id="time_required">
+            <option value="any">Any</option>
+            <option value="5 minutes">5 minutes</option>
+            <option value="10 minutes">10 minutes</option>
+            <option value="15 minutes">15 minutes</option>
+            <option value="30 minutes">30 minutes</option>
+        </select>
+
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+            <option value="any">Any</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <label for="annoyance">Amount of Annoyance:</label>
+        <select id="annoyance">
+            <option value="any">Any</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+        </select>
+
+        <label for="time_dependency">Amount of Time Dependency:</label>
+        <select id="time_dependency">
+            <option value="any">Any</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+    <ul id="filteredChores"></ul>
+
+    <input type="text" id="Type" placeholder="Type">
+    <input type="number" id="RPH" placeholder="RPH">
+    <input type="number" id="Minutes" placeholder="Minutes">
+    <button id="submit">Submit</button>
+    <script>
+        var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
+
+        var submitButton = document.getElementById('submit');
+        submitButton.addEventListener('click', function () {
+            var type = document.getElementById('Type').value;
+            var RPH = parseInt(document.getElementById('RPH').value);
+            var minutes = parseInt(document.getElementById('Minutes').value);
+            base('Chores').create(
+                [
+                {
+                    fields: {
+                        Minutes: minutes,
+                        RPH: RPH,
+                        Type: type
+                    }
+                }
+                ],
+                function (err, records) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                records.forEach(function (record) {
+                    console.log(record.getId());
+                });
+                }
+            );
+        });
+
+        var chores = {
+            "Set up vacuum": ["inside", "5 minutes", "easy", "medium", "medium"],
+            "Clean kitchen surfaces": ["inside", "5 minutes", "easy", "large", "small"],
+            "Take out trash": ["outside", "10 minutes", "medium", "large", "medium"],
+            "Clean bathroom": ["inside", "10 minutes", "easy", "large", "small"],
+            "Weed garden": ["outside", "30 minutes", "easy", "medium", "medium"],
+            "Rake leaves on driveway": ["outside", "15 minutes", "medium", "large", "medium"],
+            "Wash windows": ["inside", "15 minutes", "medium", "large", "small"],
+            "Clean up branches": ["outside", "15 minutes", "hard", "small", "medium"],
+            "Get rid of unwanted stuff in bedroom": ["inside", "5 minutes", "easy", "medium", "small"],
+            "Laundry": ["indoor", "5 minutes", "medium", "large", "large"],
+            "Empty trash bins": ["indoor", "5 minutes", "easy", "medium", "small"],
+            "Help mom at barn": ["outdoor", "30 minutes", "easy", "small", "large"],
+            "Groceries": ["indoor", "10 minutes", "medium", "medium", "large"],
+            "Walk Macy": ["outdoor", "5 minutes", "easy", "medium", "small"],
+            "Feed animals": ["outdoor", "10 minutes", "hard", "medium", "large"]
+        };
+        
+        var choreSelect = document.getElementById('chore');
+        
+        var choreForm = document.getElementById('choreForm');
+        var filteredChoresList = document.getElementById('filteredChores');
+        
+        choreForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            for (var chore in chores) {
+                var option = document.createElement('option');
+                option.value = chore;
+                option.text = chore;
+                filteredChoresList.appendChild(option);
+            }
+
+            var selectedChore = document.getElementById('chore').value;
+            var inside_outside = document.getElementById('inside_outside').value;
+            var time_required = document.getElementById('time_required').value;
+            var difficulty = document.getElementById('difficulty').value;
+            var annoyance = document.getElementById('annoyance').value;
+            var time_dependency = document.getElementById('time_dependency').value;
+
+            var filteredChores = Object.keys(chores).filter(function(chore) {
+                var choreDetails = chores[chore];
+                return (selectedChore === 'any' || selectedChore === chore) &&
+                    (inside_outside === 'any' || inside_outside === choreDetails[0]) &&
+                    (time_required === 'any' || time_required === choreDetails[1]) &&
+                    (difficulty === 'any' || difficulty === choreDetails[2]) &&
+                    (annoyance === 'any' || annoyance === choreDetails[3]) &&
+                    (time_dependency === 'any' || time_dependency === choreDetails[4]);
+
+            // Populate chore options
+            });
+
+            // Clear previous results
+            filteredChoresList.innerHTML = '';
+
+            // Display filtered chores as bullet points
+            filteredChores.forEach(function(chore) {
+                var listItem = document.createElement('li');
+                listItem.textContent = chore;
+                filteredChoresList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>
