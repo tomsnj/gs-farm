@@ -187,8 +187,7 @@
 
             var filteredChores = Object.keys(chores).filter(function(chore) {
                 var choreDetails = chores[chore];
-                return
-                    (inside_outside === 'any' || inside_outside === choreDetails[0]) &&
+                return (inside_outside === 'any' || inside_outside === choreDetails[0]) &&
                     (time_required === 'any' || time_required === choreDetails[1]) &&
                     (difficulty === 'any' || difficulty === choreDetails[2]) &&
                     (annoyance === 'any' || annoyance === choreDetails[3]) &&
