@@ -181,8 +181,6 @@
                 option.text = chore;
                 filteredChoresList.appendChild(option);
             }
-
-            var selectedChore = document.getElementById('chore').value;
             var inside_outside = document.getElementById('inside_outside').value;
             var time_required = document.getElementById('time_required').value;
             var difficulty = document.getElementById('difficulty').value;
@@ -191,7 +189,7 @@
 
             var filteredChores = Object.keys(chores).filter(function(chore) {
                 var choreDetails = chores[chore];
-                return (selectedChore === 'any' || selectedChore === chore) &&
+                return
                     (inside_outside === 'any' || inside_outside === choreDetails[0]) &&
                     (time_required === 'any' || time_required === choreDetails[1]) &&
                     (difficulty === 'any' || difficulty === choreDetails[2]) &&
