@@ -73,14 +73,14 @@
     <form id="choreForm">
 
         <label for="inside_outside">Inside or Outside:</label>
-        <select id="inside_outside">
+        <select id="inside_outside" multiple>
             <option value="any">Any</option>
             <option value="inside">Inside</option>
             <option value="outside">Outside</option>
         </select>
 
         <label for="time_required">Time Required:</label>
-        <select id="time_required">
+        <select id="time_required" multiple>
             <option value="any">Any</option>
             <option value="5 minutes">5 minutes</option>
             <option value="10 minutes">10 minutes</option>
@@ -89,7 +89,7 @@
         </select>
 
         <label for="difficulty">Difficulty:</label>
-        <select id="difficulty">
+        <select id="difficulty" multiple>
             <option value="any">Any</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
@@ -97,7 +97,7 @@
         </select>
 
         <label for="annoyance">Amount of Annoyance:</label>
-        <select id="annoyance">
+        <select id="annoyance" multiple>
             <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
@@ -105,7 +105,7 @@
         </select>
 
         <label for="time_dependency">Amount of Time Dependency:</label>
-        <select id="time_dependency">
+        <select id="time_dependency multiple>
             <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
@@ -187,11 +187,12 @@
 
             var filteredChores = Object.keys(chores).filter(function(chore) {
                 var choreDetails = chores[chore];
-                return (inside_outside === 'any' || inside_outside === choreDetails[0]) &&
-                    (time_required === 'any' || time_required === choreDetails[1]) &&
-                    (difficulty === 'any' || difficulty === choreDetails[2]) &&
-                    (annoyance === 'any' || annoyance === choreDetails[3]) &&
-                    (time_dependency === 'any' || time_dependency === choreDetails[4]);
+                return (inside_outside.includes('any') || inside_outside.includes(choreDetails[0])) &&
+                    (time_required.includes('any') || time_required.includes(choreDetails[1])) &&
+                    (difficulty.includes('any') || difficulty.includes(choreDetails[2])) &&
+                    (annoyance.includes('any') || annoyance.includes(choreDetails[3])) &&
+                    (time_dependency.includes('any') || time_dependency.includes(choreDetails[4]));
+            });
 
             // Populate chore options
             });
