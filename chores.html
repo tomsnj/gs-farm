@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chore Picker</title>
-    <script src=" https://cdn.jsdelivr.net/npm/airtable@0.12.1/lib/airtable.umd.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/airtable@0.12.1/lib/airtable.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,6 +66,11 @@
         body {
             overflow-x: hidden;
         }
+
+        /* Styling for multiple selection inputs */
+        select[multiple] {
+            height: 120px;
+        }
     </style>
 </head>
 <body>
@@ -105,7 +110,7 @@
         </select>
 
         <label for="time_dependency">Amount of Time Dependency:</label>
-        <select id="time_dependency multiple>
+        <select id="time_dependency" multiple>
             <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
@@ -121,7 +126,7 @@
     <input type="number" id="Minutes" placeholder="Minutes">
     <button id="submit">Submit</button>
     <script>
-        var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
+        var base = new Airtable({ apiKey: 'YOUR_API_KEY' }).base('YOUR_BASE_ID');
 
         var submitButton = document.getElementById('submit');
         submitButton.addEventListener('click', function () {
@@ -130,22 +135,22 @@
             var minutes = parseInt(document.getElementById('Minutes').value);
             base('Chores').create(
                 [
-                {
-                    fields: {
-                        Minutes: minutes,
-                        RPH: RPH,
-                        Type: type
+                    {
+                        fields: {
+                            Minutes: minutes,
+                            RPH: RPH,
+                            Type: type
+                        }
                     }
-                }
                 ],
                 function (err, records) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                records.forEach(function (record) {
-                    console.log(record.getId());
-                });
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    records.forEach(function (record) {
+                        console.log(record.getId());
+                    });
                 }
             );
         });
@@ -167,25 +172,29 @@
             "Walk Macy": ["outdoor", "5 minutes", "easy", "medium", "small"],
             "Feed animals": ["outdoor", "10 minutes", "hard", "medium", "large"]
         };
-        
+
         var choreForm = document.getElementById('choreForm');
         var filteredChoresList = document.getElementById('filteredChores');
-        
+
         choreForm.addEventListener('submit', function (event) {
             event.preventDefault();
-            for (var chore in chores) {
-                var option = document.createElement('option');
-                option.value = chore;
-                option.text = chore;
-                filteredChoresList.appendChild(option);
-            }
-            var inside_outside = document.getElementById('inside_outside').value;
-            var time_required = document.getElementById('time_required').value;
-            var difficulty = document.getElementById('difficulty').value;
-            var annoyance = document.getElementById('annoyance').value;
-            var time_dependency = document.getElementById('time_dependency').value;
 
-            var filteredChores = Object.keys(chores).filter(function(chore) {
+            var inside_outside = Array.from(document.getElementById('inside_outside').selectedOptions).map(option => option.value);
+            var time_required = Array.from(document.getElementById('time_required').selectedOptions).map(option => option.value);
+            var difficulty = Array.from(document.getElementById('difficulty').selectedOptions).map(option => option.value);
+            var annoyance = Array.from(document.getElementById('annoyance').selectedOptions).map(option => option.value);
+            var time_dependency = Array.from(document.getElementById('time_dependency').selectedOptions).map(option => option.value);
+
+            choreForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var inside_outside = Array.from(document.getElementById('inside_outside').selectedOptions).map(option => option.value);
+            var time_required = Array.from(document.getElementById('time_required').selectedOptions).map(option => option.value);
+            var difficulty = Array.from(document.getElementById('difficulty').selectedOptions).map(option => option.value);
+            var annoyance = Array.from(document.getElementById('annoyance').selectedOptions).map(option => option.value);
+            var time_dependency = Array.from(document.getElementById('time_dependency').selectedOptions).map(option => option.value);
+
+            var filteredChores = Object.keys(chores).filter(function (chore) {
                 var choreDetails = chores[chore];
                 return (inside_outside.includes('any') || inside_outside.includes(choreDetails[0])) &&
                     (time_required.includes('any') || time_required.includes(choreDetails[1])) &&
@@ -194,14 +203,12 @@
                     (time_dependency.includes('any') || time_dependency.includes(choreDetails[4]));
             });
 
-            // Populate chore options
-            });
 
             // Clear previous results
             filteredChoresList.innerHTML = '';
 
             // Display filtered chores as bullet points
-            filteredChores.forEach(function(chore) {
+            filteredChores.forEach(function (chore) {
                 var listItem = document.createElement('li');
                 listItem.textContent = chore;
                 filteredChoresList.appendChild(listItem);
@@ -209,4 +216,5 @@
         });
     </script>
 </body>
+
 </html>
