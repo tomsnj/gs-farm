@@ -123,6 +123,7 @@
     <input type="number" id="RPH" placeholder="RPH">
     <input type="number" id="Minutes" placeholder="Minutes">
     <button id="submit">Submit</button>
+    <script src="https://cdn.jsdelivr.net/npm/airtable@0.12.1/build/airtable.browser.js"></script>
     <script>
         var chores = {
             "Set up vacuum": ["inside", "5 minutes", "easy", "medium", "medium"],
@@ -175,39 +176,33 @@
             });
         });
 
+        // Here's an example of how to use Airtable in the browser:
+        // You need to include the Airtable browser script in your HTML file.
+
         var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
-        var form = document.getElementById('choreForm');
-        var typeInput = document.getElementById('Type');
-        var rphInput = document.getElementById('RPH');
-        var minutesInput = document.getElementById('Minutes');
-        var submitButton = document.getElementById('submit');
 
-        submitButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            var type = typeInput.value;
-            var rph = parseInt(rphInput.value);
-            var minutes = parseInt(minutesInput.value);
+        document.getElementById('submit').addEventListener('click', function () {
+            var Type = document.getElementById('Type').value;
+            var RPH = document.getElementById('RPH').value;
+            var Minutes = document.getElementById('Minutes').value;
 
-            base('Chores').create(
-                [
-                    {
-                        fields: {
-                            Type: type,
-                            RPH: rph,
-                            Minutes: minutes
-                        }
+            base('Tasks').create([
+                {
+                    "fields": {
+                        "Type": Type,
+                        "RPH": RPH,
+                        "Minutes": Minutes
                     }
-                ],
-                function (err, records) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-                    records.forEach(function (record) {
-                        console.log(record.getId());
-                    });
                 }
-            );
+            ], function (err, records) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                records.forEach(function (record) {
+                    console.log(record.getId());
+                });
+            });
         });
     </script>
 </body>
