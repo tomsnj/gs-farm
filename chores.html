@@ -75,15 +75,16 @@
 <body>
     <h1>Chore Picker</h1>
     <form id="choreForm">
-
         <label for="inside_outside">Inside or Outside:</label>
         <select id="inside_outside" multiple>
+            <option value="any">Any</option>
             <option value="inside">Inside</option>
             <option value="outside">Outside</option>
         </select>
 
         <label for="time_required">Time Required:</label>
         <select id="time_required" multiple>
+            <option value="any">Any</option>
             <option value="5 minutes">5 minutes</option>
             <option value="10 minutes">10 minutes</option>
             <option value="15 minutes">15 minutes</option>
@@ -92,6 +93,7 @@
 
         <label for="difficulty">Difficulty:</label>
         <select id="difficulty" multiple>
+            <option value="any">Any</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -99,6 +101,7 @@
 
         <label for="annoyance">Amount of Annoyance:</label>
         <select id="annoyance" multiple>
+            <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
@@ -106,6 +109,7 @@
 
         <label for="time_dependency">Amount of Time Dependency:</label>
         <select id="time_dependency" multiple>
+            <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
@@ -119,37 +123,7 @@
     <input type="number" id="RPH" placeholder="RPH">
     <input type="number" id="Minutes" placeholder="Minutes">
     <button id="submit">Submit</button>
-    <script src="https://cdn.jsdelivr.net/npm/airtable@0.12.1/lib/airtable.umd.min.js"></script>
     <script>
-        var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
-
-        var submitButton = document.getElementById('submit');
-        submitButton.addEventListener('click', function () {
-            var type = document.getElementById('Type').value;
-            var RPH = parseInt(document.getElementById('RPH').value);
-            var minutes = parseInt(document.getElementById('Minutes').value);
-            base('Chores').create(
-                [
-                    {
-                        fields: {
-                            Minutes: minutes,
-                            RPH: RPH,
-                            Type: type
-                        }
-                    }
-                ],
-                function (err, records) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-                    records.forEach(function (record) {
-                        console.log(record.getId());
-                    });
-                }
-            );
-        });
-
         var chores = {
             "Set up vacuum": ["inside", "5 minutes", "easy", "medium", "medium"],
             "Clean kitchen surfaces": ["inside", "5 minutes", "easy", "large", "small"],
@@ -181,24 +155,59 @@
 
             var filteredChores = Object.keys(chores).filter(function (chore) {
                 var choreDetails = chores[chore];
-                return inside_outside.includes(choreDetails[0]) &&
-                    time_required.includes(choreDetails[1]) &&
-                    difficulty.includes(choreDetails[2]) &&
-                    annoyance.includes(choreDetails[3]) &&
-                    time_dependency.includes(choreDetails[4]);
+                return (
+                    (inside_outside.includes('any') || inside_outside.includes(choreDetails[0])) &&
+                    (time_required.includes('any') || time_required.includes(choreDetails[1])) &&
+                    (difficulty.includes('any') || difficulty.includes(choreDetails[2])) &&
+                    (annoyance.includes('any') || annoyance.includes(choreDetails[3])) &&
+                    (time_dependency.includes('any') || time_dependency.includes(choreDetails[4]))
+                );
             });
 
+            // Clear previous results
             filteredChoresList.innerHTML = '';
 
-            if (filteredChores.length === 0) {
-                filteredChoresList.innerHTML = '<li>No chores match the selected criteria.</li>';
-            } else {
-                filteredChores.forEach(function (chore) {
-                    var li = document.createElement('li');
-                    li.textContent = chore;
-                    filteredChoresList.appendChild(li);
-                });
-            }
+            // Display filtered chores as bullet points
+            filteredChores.forEach(function (chore) {
+                var listItem = document.createElement('li');
+                listItem.textContent = chore;
+                filteredChoresList.appendChild(listItem);
+            });
+        });
+
+        var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
+        var form = document.getElementById('choreForm');
+        var typeInput = document.getElementById('Type');
+        var rphInput = document.getElementById('RPH');
+        var minutesInput = document.getElementById('Minutes');
+        var submitButton = document.getElementById('submit');
+
+        submitButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var type = typeInput.value;
+            var rph = parseInt(rphInput.value);
+            var minutes = parseInt(minutesInput.value);
+
+            base('Chores').create(
+                [
+                    {
+                        fields: {
+                            Type: type,
+                            RPH: rph,
+                            Minutes: minutes
+                        }
+                    }
+                ],
+                function (err, records) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    records.forEach(function (record) {
+                        console.log(record.getId());
+                    });
+                }
+            );
         });
     </script>
 </body>
