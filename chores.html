@@ -180,25 +180,32 @@
         // You need to include the Airtable browser script in your HTML file.
 
         var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
+                var form = document.getElementById('choreForm');
+        var typeInput = document.getElementById('Type');
+        var rphInput = document.getElementById('RPH');
+        var minutesInput = document.getElementById('Minutes');
+        var submitButton = document.getElementById('submit');
 
-        document.getElementById('submit').addEventListener('click', function () {
-            var Type = document.getElementById('Type').value;
-            var RPH = document.getElementById('RPH').value;
-            var Minutes = document.getElementById('Minutes').value;
+               submitButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var type = typeInput.value;
+            var rph = parseInt(rphInput.value);
+            var minutes = parseInt(minutesInput.value);
 
-            base('Tasks').create([
-                {
-                    "fields": {
-                        "Type": Type,
-                        "RPH": RPH,
-                        "Minutes": Minutes
+            base('Chores').create(
+                [
+                    {
+                        fields: {
+                            Type: type,
+                            RPH: rph,
+                            Minutes: minutes
+                        }
                     }
-                }
-            ], function (err, records) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
+                ],
+                function (err, records) {
+                    if (err) {
+                        console.error(err);
+                        return;
                 records.forEach(function (record) {
                     console.log(record.getId());
                 });
