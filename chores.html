@@ -76,17 +76,14 @@
 <body>
     <h1>Chore Picker</h1>
     <form id="choreForm">
-
         <label for="inside_outside">Inside or Outside:</label>
         <select id="inside_outside" multiple>
-            <option value="any">Any</option>
             <option value="inside">Inside</option>
             <option value="outside">Outside</option>
         </select>
 
         <label for="time_required">Time Required:</label>
         <select id="time_required" multiple>
-            <option value="any">Any</option>
             <option value="5 minutes">5 minutes</option>
             <option value="10 minutes">10 minutes</option>
             <option value="15 minutes">15 minutes</option>
@@ -95,7 +92,6 @@
 
         <label for="difficulty">Difficulty:</label>
         <select id="difficulty" multiple>
-            <option value="any">Any</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -103,7 +99,6 @@
 
         <label for="annoyance">Amount of Annoyance:</label>
         <select id="annoyance" multiple>
-            <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
@@ -111,7 +106,6 @@
 
         <label for="time_dependency">Amount of Time Dependency:</label>
         <select id="time_dependency" multiple>
-            <option value="any">Any</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
@@ -168,7 +162,6 @@
             "Laundry": ["indoor", "5 minutes", "medium", "large", "large"],
             "Empty trash bins": ["indoor", "5 minutes", "easy", "medium", "small"],
             "Help mom at barn": ["outdoor", "30 minutes", "easy", "small", "large"],
-            "Groceries": ["indoor", "10 minutes", "medium", "medium", "large"],
             "Walk Macy": ["outdoor", "5 minutes", "easy", "medium", "small"],
             "Feed animals": ["outdoor", "10 minutes", "hard", "medium", "large"]
         };
@@ -185,36 +178,22 @@
             var annoyance = Array.from(document.getElementById('annoyance').selectedOptions).map(option => option.value);
             var time_dependency = Array.from(document.getElementById('time_dependency').selectedOptions).map(option => option.value);
 
-            choreForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            var inside_outside = Array.from(document.getElementById('inside_outside').selectedOptions).map(option => option.value);
-            var time_required = Array.from(document.getElementById('time_required').selectedOptions).map(option => option.value);
-            var difficulty = Array.from(document.getElementById('difficulty').selectedOptions).map(option => option.value);
-            var annoyance = Array.from(document.getElementById('annoyance').selectedOptions).map(option => option.value);
-            var time_dependency = Array.from(document.getElementById('time_dependency').selectedOptions).map(option => option.value);
-
             var filteredChores = Object.keys(chores).filter(function (chore) {
                 var choreDetails = chores[chore];
-                return (inside_outside.includes('any') || inside_outside.includes(choreDetails[0])) &&
-                    (time_required.includes('any') || time_required.includes(choreDetails[1])) &&
-                    (difficulty.includes('any') || difficulty.includes(choreDetails[2])) &&
-                    (annoyance.includes('any') || annoyance.includes(choreDetails[3])) &&
-                    (time_dependency.includes('any') || time_dependency.includes(choreDetails[4]));
+                return inside_outside.includes(choreDetails[0]) &&
+                    time_required.includes(choreDetails[1]) &&
+                    difficulty.includes(choreDetails[2]) &&
+                    annoyance.includes(choreDetails[3]) &&
+                    time_dependency.includes(choreDetails[4]);
             });
 
-
-            // Clear previous results
             filteredChoresList.innerHTML = '';
-
-            // Display filtered chores as bullet points
             filteredChores.forEach(function (chore) {
-                var listItem = document.createElement('li');
-                listItem.textContent = chore;
-                filteredChoresList.appendChild(listItem);
+                var li = document.createElement('li');
+                li.textContent = chore;
+                filteredChoresList.appendChild(li);
             });
-        })});
+        });
     </script>
 </body>
-
 </html>
