@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chore Picker</title>
+    <script src="https://cdn.jsdelivr.net/npm/airtable@0.12.1/lib/airtable.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -118,8 +119,36 @@
     <input type="number" id="RPH" placeholder="RPH">
     <input type="number" id="Minutes" placeholder="Minutes">
     <button id="submit">Submit</button>
-    <script src="https://cdn.jsdelivr.net/npm/airtable@0.12.1/build/airtable.browser.js"></script>
     <script>
+        var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
+
+        var submitButton = document.getElementById('submit');
+        submitButton.addEventListener('click', function () {
+            var type = document.getElementById('Type').value;
+            var RPH = parseInt(document.getElementById('RPH').value);
+            var minutes = parseInt(document.getElementById('Minutes').value);
+            base('Chores').create(
+                [
+                    {
+                        fields: {
+                            Minutes: minutes,
+                            RPH: RPH,
+                            Type: type
+                        }
+                    }
+                ],
+                function (err, records) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    records.forEach(function (record) {
+                        console.log(record.getId());
+                    });
+                }
+            );
+        });
+
         var chores = {
             "Set up vacuum": ["inside", "5 minutes", "easy", "medium", "medium"],
             "Clean kitchen surfaces": ["inside", "5 minutes", "easy", "large", "small"],
@@ -151,59 +180,18 @@
 
             var filteredChores = Object.keys(chores).filter(function (chore) {
                 var choreDetails = chores[chore];
-                return (
-                    (inside_outside.includes('any') || inside_outside.includes(choreDetails[0])) &&
-                    (time_required.includes('any') || time_required.includes(choreDetails[1])) &&
-                    (difficulty.includes('any') || difficulty.includes(choreDetails[2])) &&
-                    (annoyance.includes('any') || annoyance.includes(choreDetails[3])) &&
-                    (time_dependency.includes('any') || time_dependency.includes(choreDetails[4]))
-                );
+                return inside_outside.includes(choreDetails[0]) &&
+                    time_required.includes(choreDetails[1]) &&
+                    difficulty.includes(choreDetails[2]) &&
+                    annoyance.includes(choreDetails[3]) &&
+                    time_dependency.includes(choreDetails[4]);
             });
 
-            // Clear previous results
             filteredChoresList.innerHTML = '';
-
-            // Display filtered chores as bullet points
             filteredChores.forEach(function (chore) {
-                var listItem = document.createElement('li');
-                listItem.textContent = chore;
-                filteredChoresList.appendChild(listItem);
-            });
-        });
-
-        // Here's an example of how to use Airtable in the browser:
-        // You need to include the Airtable browser script in your HTML file.
-
-        var base = new Airtable({ apiKey: 'keytn8YK9us3MOI0M' }).base('appVx5zEGJVnj1OJR');
-                var form = document.getElementById('choreForm');
-        var typeInput = document.getElementById('Type');
-        var rphInput = document.getElementById('RPH');
-        var minutesInput = document.getElementById('Minutes');
-        var submitButton = document.getElementById('submit');
-
-               submitButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            var type = typeInput.value;
-            var rph = parseInt(rphInput.value);
-            var minutes = parseInt(minutesInput.value);
-
-            base('Chores').create(
-                [
-                    {
-                        fields: {
-                            Type: type,
-                            RPH: rph,
-                            Minutes: minutes
-                        }
-                    }
-                ],
-                function (err, records) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                records.forEach(function (record) {
-                    console.log(record.getId());
-                });
+                var li = document.createElement('li');
+                li.textContent = chore;
+                filteredChoresList.appendChild(li);
             });
         });
     </script>
